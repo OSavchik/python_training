@@ -3,7 +3,6 @@ class SessionHelper:
     def __init__(self, app):
         self.app = app
 
-
     def authorization(self, user, secret):
         wd = self.app.wd
         self.app.open_home_page()
@@ -13,8 +12,7 @@ class SessionHelper:
         wd.find_element_by_name("pass").click()
         wd.find_element_by_name("pass").clear()
         wd.find_element_by_name("pass").send_keys(secret)
-        print("authorization end")
-
+        wd.find_element_by_xpath("//input[@value='Login']").click()
 
     def logout(self):
         # Logout
