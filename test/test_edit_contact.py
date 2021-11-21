@@ -1,7 +1,14 @@
 from model.contact import Contact
 
-def test_edit_contact(app):
-    app.session.authorization(user="admin", secret="secret")
-    app.contact.edit_first_contact(Contact(first_name="EditName", middle_name="EditMiddleName", last_name="EditLastName", nick_name="EditNickeName"))
-    app.session.logout()
+def test_edit_name_contact(app):
+    app.contact.edit_first_contact(Contact(first_name="EditName"))
+
+def test_edit_middlename_contact1(app):
+    app.contact.edit_first_contact(Contact(middle_name="EditMiddleName"))
+
+def test_edit_lastname_contact(app):
+    app.contact.edit_first_contact(Contact(last_name="EditLastName"))
+
+def test_edit_nickname_contact(app):
+    app.contact.edit_first_contact(Contact(nick_name="EditNickeName"))
 
