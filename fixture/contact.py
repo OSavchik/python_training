@@ -1,3 +1,5 @@
+from model.contact import Contact
+
 class ContactHelper:
 
     def __init__(self, app):
@@ -63,6 +65,21 @@ class ContactHelper:
         self.return_Home()
         wd.find_element_by_name("searchstring")
         return len(wd.find_elements_by_name("selected[]"))
+
+    def get_contact_list(self):
+        wd = self.app.wd
+        self.return_Home()
+        contacts = []
+        countcontacts = int(wd.find_element_by_xpath("// *[ @ id = 'search_count']").text)
+        for i in range(2, countcontacts + 2):
+            css_str = "#maintable > tbody:nth-child(1) > tr:nth-child(" + str(i) + ")"
+            css_child_str = "#maintable > tbody:nth-child(1) > tr:nth-child(" + str(i) + ")" + " > td:nth-child(2)"
+            for element in wd.find_elements_by_css_selector(css_str):
+                id = element.find_element_by_name("selected[]").get_attribute("value")
+            for element in wd.find_elements_by_css_selector(css_child_str):
+                text = element.text
+            contacts.append(Contact(last_name=text, id=id))
+        return contacts
 
 
 
