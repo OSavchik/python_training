@@ -15,6 +15,7 @@ class ContactHelper:
         self.submit_create_contact()
         # return Home Page
         self.return_Home()
+        self.contact_cache = None
 
     def submit_create_contact(self):
         wd = self.app.wd
@@ -51,6 +52,7 @@ class ContactHelper:
         wd.find_element_by_xpath("//input[@value='Delete']").click()
         wd.switch_to.alert.accept()
         self.return_Home()
+        self.contact_cache = None
 
     def edit_first_contact(self, contact):
         wd = self.app.wd
@@ -59,6 +61,7 @@ class ContactHelper:
         self.fill_contact_form(contact)
         wd.find_element_by_xpath("//div[@id='content']/form/input[22]").click()
         self.return_Home()
+        self.contact_cache = None
 
     def count(self):
         wd = self.app.wd
@@ -66,20 +69,26 @@ class ContactHelper:
         wd.find_element_by_name("searchstring")
         return len(wd.find_elements_by_name("selected[]"))
 
+    contact_cache = None
+
     def get_contact_list(self):
-        wd = self.app.wd
-        self.return_Home()
-        contacts = []
-        countcontacts = int(wd.find_element_by_xpath("// *[ @ id = 'search_count']").text)
-        for i in range(2, countcontacts + 2):
-            css_str = "#maintable > tbody:nth-child(1) > tr:nth-child(" + str(i) + ")"
-            css_child_str = "#maintable > tbody:nth-child(1) > tr:nth-child(" + str(i) + ")" + " > td:nth-child(2)"
-            for element in wd.find_elements_by_css_selector(css_str):
-                id = element.find_element_by_name("selected[]").get_attribute("value")
-            for element in wd.find_elements_by_css_selector(css_child_str):
-                text = element.text
-            contacts.append(Contact(last_name=text, id=id))
-        return contacts
+        if self.contact_cache is None:
+            wd = self.app.wd
+            self.return_Home()
+            self.contact_cache = []
+            countcontacts = int(wd.find_element_by_xpath("// *[ @ id = 'search_count']").text)
+            for i in range(2, countcontacts + 2):
+                css_str = "#maintable > tbody:nth-child(1) > tr:nth-child(" + str(i) + ")"
+                css_child_str = "#maintable > tbody:nth-child(1) > tr:nth-child(" + str(i) + ")" + " > td:nth-child(2)"
+                for element in wd.find_elements_by_css_selector(css_str):
+                    id = element.find_element_by_name("selected[]").get_attribute("value")
+                for element in wd.find_elements_by_css_selector(css_child_str):
+                    text = element.text
+                self.contact_cache.append(Contact(last_name=text, id=id))
+        return list(self.contact_cache)
+
+
+
 
 
 
