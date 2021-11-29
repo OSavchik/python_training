@@ -73,7 +73,6 @@ class ContactHelper:
         self.select_contact_by_index(0)
         wd.find_element_by_xpath("//img[@alt='Edit']").click()
         self.fill_contact_form(contact)
-        wd.find_element_by_xpath("//div[@id='content']/form/input[22]").click()
         self.return_Home()
         self.contact_cache = None
 
@@ -81,7 +80,7 @@ class ContactHelper:
         wd = self.app.wd
         wd.find_element_by_link_text("home").click()
         self.select_contact_by_index(index)
-        wd.find_element_by_xpath("//img[@alt='Edit']").click()
+        wd.find_element_by_xpath(f"(//img[@alt='Edit'])[{index}]").click()
         self.fill_contact_form(contact)
         wd.find_element_by_xpath("//div[@id='content']/form/input[22]").click()
         self.return_Home()
