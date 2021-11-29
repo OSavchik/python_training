@@ -57,12 +57,14 @@ class ContactHelper:
     def select_contact_by_index(self, index):
         wd = self.app.wd
         wd.find_elements_by_name("selected[]")[index].click()
+        wd.find_elements_by_xpath("//*[contains(text(), 'Delete record')]")
 
     def delete_contact_by_index(self, index):
         wd = self.app.wd
         self.select_contact_by_index(index)
         wd.find_element_by_xpath("//input[@value='Delete']").click()
         wd.switch_to.alert.accept()
+        wd.find_elements_by_xpath("//*[contains(text(), 'Delete record')]")
         self.return_Home()
         self.contact_cache = None
 
