@@ -64,6 +64,7 @@ class ContactHelper:
         wd.find_element_by_xpath("//input[@value='Delete']").click()
         wd.switch_to.alert.accept()
         wd.find_elements_by_xpath("//*[contains(text(), 'Delete record')]")
+        wd.find_element_by_css_selector("div.msgbox")
         self.return_Home()
         self.contact_cache = None
 
@@ -80,7 +81,7 @@ class ContactHelper:
         wd = self.app.wd
         wd.find_element_by_link_text("home").click()
         self.select_contact_by_index(index)
-        wd.find_element_by_xpath(f"(//img[@alt='Edit'])[{index}]").click()
+        wd.find_element_by_xpath(f"(//img[@alt='Edit'])[{index + 1}]").click()
         self.fill_contact_form(contact)
         wd.find_element_by_xpath("//div[@id='content']/form/input[22]").click()
         self.return_Home()
@@ -103,10 +104,10 @@ class ContactHelper:
             for i in range(2, countcontacts + 2):
                 css_str = "#maintable > tbody:nth-child(1) > tr:nth-child(" + str(i) + ")"
                 css_child_str = "#maintable > tbody:nth-child(1) > tr:nth-child(" + str(i) + ")" + " > td:nth-child(2)"
-                for element in wd.find_elements_by_css_selector(css_str):
-                    id = element.find_element_by_name("selected[]").get_attribute("value")
-                for element in wd.find_elements_by_css_selector(css_child_str):
-                    text = element.text
+                element = wd.find_element_by_css_selector(css_str)
+                id = element.find_element_by_name("selected[]").get_attribute("value")
+                element  = wd.find_element_by_css_selector(css_child_str)
+                text = element.text
                 self.contact_cache.append(Contact(last_name=text, id=id))
         return list(self.contact_cache)
 
