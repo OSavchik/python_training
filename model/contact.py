@@ -29,7 +29,7 @@ class Contact:
         self.all_fields_on_view_form = all_fields_on_view_form
 
     def __repr__(self):
-        return "%s:%s" % (self.id, self.last_name)
+        return "%s:%s:%s:%s:%s" % (self.id, self.first_name, self.middle_name,  self.last_name, self.nick_name)
 
     def __eq__(self, other):
         return (self.id is None or other.id is None or self.id == other.id) and self.last_name == other.last_name
