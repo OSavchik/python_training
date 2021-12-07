@@ -8,6 +8,12 @@ class Application:
     def __init__(self, browser, base_url):
         if browser == "firefox":
             self.wd = webdriver.Firefox()
+        if browser == "Chrome":
+            self.wd = webdriver.Chrome()
+        if browser == "ie":
+            self.wd = webdriver.Ie()
+        else:
+            raise ValueError("Unrecoznized browse %s" % browser)
         self.wd.implicitly_wait(5)
         self.session = SessionHelper(self)
         self.group = GroupHelper(self)

@@ -7,7 +7,7 @@ class Contact:
                  company_name=None, title_name=None, address_name=None,
                  home_phone = None, mobil_phone = None, work_phone = None, secondary_phone = None,
                  fax=None, email=None, email2=None, email3=None,
-                 all_phones_from_home_page=None, id=None,
+                 all_phones_from_home_page=None, all_email=None, id=None,
                  all_fields_on_view_form = None):
         self.first_name = first_name
         self.middle_name = middle_name
@@ -21,6 +21,7 @@ class Contact:
         self.work_phone = work_phone
         self.secondary_phone = secondary_phone
         self.all_phones_from_home_page = all_phones_from_home_page
+        self.all_email = all_email
         self.fax = fax
         self.email = email
         self.email2 = email2
