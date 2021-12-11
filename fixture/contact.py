@@ -163,6 +163,7 @@ class ContactHelper:
         email = wd.find_element_by_name("email").get_attribute("value")
         email2 = wd.find_element_by_name("email2").get_attribute("value")
         email3 = wd.find_element_by_name("email3").get_attribute("value")
+        self.return_Home()
 
         return Contact(first_name = first_name, middle_name = middle_name, last_name = last_name, nick_name = nick_name, id = id,
                        company_name = company_name, title_name = title_name, address_name = address_name,
