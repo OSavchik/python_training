@@ -41,8 +41,8 @@ class ORMFixture:
         return self.convert_groups_to_model((select(g for g in ORMFixture.ORMGroup)))
 
     def convert_contacts_to_model(self, contacts):
-        def convert(contact):
-            return Contact(id=str(contact.id), first_name=contact.firstname, middle_name=contact.middlename, last_name=contact.lastname, nick_name=contact.nickname)
+        def convert(сontact):
+            return Contact(id=str(сontact.id), first_name=сontact.first_name, middle_name=сontact.middle_name, last_name=сontact.last_name, nick_name=сontact.nick_name)
         return list(map(convert, contacts))
 
 

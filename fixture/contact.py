@@ -1,4 +1,5 @@
 from model.contact import Contact
+from selenium.webdriver.support.ui import Select
 import re
 
 class ContactHelper:
@@ -28,6 +29,7 @@ class ContactHelper:
         self.change_field_value("middlename", contact.middle_name)
         self.change_field_value("lastname", contact.last_name)
         self.change_field_value("nickname", contact.nick_name)
+        self.choice_group("EDIT_GROUP")
 
     def fill_group_form(self, group):
         wd = self.app.wd
@@ -41,6 +43,11 @@ class ContactHelper:
             wd.find_element_by_name(field_name).click()
             wd.find_element_by_name(field_name).clear()
             wd.find_element_by_name(field_name).send_keys(text)
+
+    def choice_group(self, name_group):
+        wd = self.app.wd
+        wd.find_element_by_name("new_group").click()
+        Select(wd.find_element_by_name("new_group")).select_by_visible_text(name_group)
 
     def return_Home(self):
         wd = self.app.wd
