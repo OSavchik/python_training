@@ -218,14 +218,7 @@ class ContactHelper:
         secondary_phone = re.search("P: (.*)", text).group(1)
         return Contact(home_phone = home_phone, mobil_phone = mobil_phone, work_phone = work_phone, secondary_phone = secondary_phone, all_fields_on_view_form = all_fields_on_view_form)
 
-    def get_serial_number_contact_by_id(self, list_contact, id):
-        i = 0
-        for index_element in list_contact:
-            if index_element.id == id:
-                break
-            else:
-                i = i + 1
-        return i
+
 
 
 

@@ -33,3 +33,14 @@ class Application:
 
     def destroy(self):
         self.wd.quit()
+
+    def get_serial_number_element_by_id(self, list_elements, id):
+        i = 0
+        for index_element in list_elements:
+            if index_element.id == id:
+                break
+            else:
+                i = i + 1
+        return i
+
+

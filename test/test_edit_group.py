@@ -19,12 +19,7 @@ def test_edit_some_group(app, db, check_ui):
                 app.group.create(Group(name="NEW_GROUP", header="NEW_GROUP", footer="NEW_GROUP"))
         old_groups = db.get_group_list()
         index = random.choice(old_groups)
-        i = 0
-        for index_element in old_groups:
-                if index_element.id == index.id:
-                        break
-                else:
-                    i = i + 1
+        i = app.get_serial_number_element_by_id(old_groups, index.id)
         group = Group(name="EDIT_GROUP")
         group.id = old_groups[i].id
         app.group.edit_group_by_id(index.id, group)
