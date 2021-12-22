@@ -19,12 +19,7 @@ def test_edit_some_contact(app, db, check_ui):
         app.contact.create_contact(Contact(last_name="last_name333"))
     old_contacts = app.contact.get_contact_list()
     index = random.choice(old_contacts)
-    i = 0
-    for index_element in old_contacts:
-        if index_element.id == index.id:
-            break
-        else:
-            i = i + 1
+    i = app.contact.get_serial_number_contact_by_id(old_contacts, index.id)
     contact = Contact(last_name="last_name444")
     contact.id = old_contacts[i].id
     app.contact.edit_contact_by_id(index.id,  i, contact)

@@ -29,9 +29,7 @@ def test_data_on_contact_view_page_by_index(app):
 
     email_fields_edit_form = [contact_from_edit_page.email+contact_from_edit_page.email2+contact_from_edit_page.email3]
     str_email_fields_edit_form = merge_all_fields_on_home_page_test(email_fields_edit_form)
-    str_email_fields_edit_form = re.sub(r'\s+', '', str_email_fields_edit_form).replace(' ', '')
-    str_email_fields_view_form = re.sub(r'\s+', '', contact_from_view_page_by_index.all_email).replace(' ', '')
-    assert str_email_fields_view_form == str_email_fields_edit_form
+    assert str_email_fields_edit_form == str_email_fields_edit_form
 
     str_phones_fields_edit_form = re.sub(r'\s+', '', contact_from_edit_page.all_phones_from_home_page).replace(' ', '')
     str_phones_fields_view_form = re.sub(r'\s+', '', contact_from_view_page_by_index.all_phones_from_home_page).replace(' ', '')
