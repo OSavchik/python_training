@@ -29,6 +29,10 @@ class DbFixture:
             cursor.execute(f"select id, firstname, middlename, lastname, nickname, address, email, email2, email3, home, mobile, work, phone2 from addressbook where deprecated='0000-00-00 00:00:00'")
             for row in cursor:
                 (id, first_name, middle_name, last_name, nick_name, address, email, email2, email3, home, mobile, work, phone2) = row
+                if email2 != None and email2 != '' and email != None and email != '':
+                    email2 = "\n"+email2
+                if email3 != None and email3 != '' and email2 != None and email2 != ''and email != None and email != '':
+                    email3 = "\n"+email3
                 list.append(Contact(id=str(id), first_name=first_name, middle_name=middle_name, last_name=last_name,
                                     nick_name=nick_name, address_name=address, all_email=email+email2+email3, all_phones_from_home_page=home+mobile+work+phone2))
         finally:
@@ -54,6 +58,15 @@ class DbFixture:
             cursor.close()
         return find_contact_by_index
 
+    def search_not_empty_group(self):
+        cursor =  self.connection.cursor()
+        try:
+            cursor.execute("select group_name from group_list where group_name is not NULL and group_name <> '' ")
+            group_with_name = cursor.fetchone()
+        finally:
+            cursor.close()
+        return group_with_name
+
     def get_first_contact_with_group(self):
         cursor =  self.connection.cursor()
         try:
@@ -63,6 +76,24 @@ class DbFixture:
         finally:
             cursor.close()
         return find_contact_with_group
+
+    def delete_link_group_with_contact(self, index):
+        cursor =  self.connection.cursor()
+        try:
+            cursor.execute(f"delete from address_in_groups where address_in_groups.id = {index}")
+            find_link_group_with_contact = cursor.fetchone()
+        finally:
+            cursor.close()
+        return find_link_group_with_contact
+
+    def find_link_group_with_contact(self, index):
+        cursor =  self.connection.cursor()
+        try:
+            cursor.execute(f"select id from address_in_groups where address_in_groups.id = {index}")
+            find_link_group_with_contact = cursor.fetchone()
+        finally:
+            cursor.close()
+        return find_link_group_with_contact
 
     def destroy(self):
         self.connection.close()

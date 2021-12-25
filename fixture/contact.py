@@ -31,7 +31,7 @@ class ContactHelper:
         self.change_field_value("middlename", contact.middle_name)
         self.change_field_value("lastname", contact.last_name)
         self.change_field_value("nickname", contact.nick_name)
-        self.choice_group("EDIT_GROUP")
+        self.choice_group()
 
     def fill_group_form(self, group):
         wd = self.app.wd
@@ -46,14 +46,21 @@ class ContactHelper:
             wd.find_element_by_name(field_name).clear()
             wd.find_element_by_name(field_name).send_keys(text)
 
-    def choice_group(self, name_group):
+    def choice_group(self):
         wd = self.app.wd
+        is_find_group = 0
         try:
             wd.find_element_by_name("new_group")
         except NoSuchElementException:
             return True
         wd.find_element_by_name("new_group").click()
-        Select(wd.find_element_by_name("new_group")).select_by_visible_text(name_group)
+        option_list = Select(wd.find_element_by_name("new_group")).options
+        for element in option_list:
+            text = element.text
+            if (text != None) and (text != '[none]') and (text != ''):
+                Select(wd.find_element_by_name("new_group")).select_by_visible_text(text)
+                is_find_group = 1
+                break
 
     def return_Home(self):
         wd = self.app.wd
@@ -176,10 +183,14 @@ class ContactHelper:
             all_email = cell[4].text
             id = cell[0].find_element_by_tag_name("input").get_attribute("value")
             all_phones_from_home_page = cell[5].text
-            self.contact_cache.append(Contact(last_name=last_name, first_name=first_name, id=id,
+           # self.contact_cache.append(Contact(last_name=last_name, first_name=first_name, id=id,
+                                             # address_name=address_name, all_email=all_email,
+                                             # all_phones_from_home_page=all_phones_from_home_page))
+            return Contact(last_name=last_name, first_name=first_name, id=id,
                                               address_name=address_name, all_email=all_email,
-                                              all_phones_from_home_page=all_phones_from_home_page))
-        return list(self.contact_cache)
+                                              all_phones_from_home_page=all_phones_from_home_page)
+
+      #  return self.contact_cache
 
     def get_contact_info_from_edit_page(self, index):
         wd = self.app.wd

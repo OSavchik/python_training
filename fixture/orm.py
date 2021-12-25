@@ -27,7 +27,7 @@ class ORMFixture:
         groups = Set(lambda: ORMFixture.ORMGroup, table="address_in_groups", column="group_id", reverse="contacts", lazy=True)
 
     def __init__(self, host, name, user, password):
-        self.db.bind('mysql', host=host, database=name, user=user, password=password, conv=decoders) #, conv=decoders
+        self.db.bind('mysql', host=host, database=name, user=user, password=password) #, conv=decoders
         self.db.generate_mapping()
         sql_debug(True)
 
@@ -42,7 +42,7 @@ class ORMFixture:
 
     def convert_contacts_to_model(self, contacts):
         def convert(сontact):
-            return Contact(id=str(сontact.id), first_name=сontact.first_name, middle_name=сontact.middle_name, last_name=сontact.last_name, nick_name=сontact.nick_name)
+            return Contact(id=str(сontact.id), firstname=сontact.firstname, middlename=сontact.middlename, lastname=сontact.lastname, nickname=сontact.nickname)
         return list(map(convert, contacts))
 
 
