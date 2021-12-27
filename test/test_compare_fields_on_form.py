@@ -27,9 +27,9 @@ def test_data_on_contact_view_page_by_index(app):
     assert str(contact_from_view_page_by_index.first_name).strip() == str(contact_from_edit_page.first_name).strip()
     assert str(contact_from_view_page_by_index.address_name).strip() == str(contact_from_edit_page.address_name).strip()
     email_edit_form = [contact_from_edit_page.email, contact_from_edit_page.email2, contact_from_edit_page.email3 ]
-    assert contact_from_view_page_by_index.all_email == merge_fields_on_home_page(email_edit_form)
+    assert contact_from_view_page_by_index.all_email == app.contact.merge_fields_on_home_page(email_edit_form)
     all_phones_edit_form = [contact_from_edit_page.home_phone, contact_from_edit_page.mobil_phone, contact_from_edit_page.work_phone, contact_from_edit_page.secondary_phone]
-    assert contact_from_view_page_by_index.all_phones_from_home_page == merge_fields_on_home_page(all_phones_edit_form)
+    assert contact_from_view_page_by_index.all_phones_from_home_page == app.contact.merge_fields_on_home_page(all_phones_edit_form)
 
 def clear(s):
     return re.sub("[() -]", "", s)
@@ -40,9 +40,6 @@ def merge_all_fields_on_home_page_test(fiels_by_contact):
                                 filter(lambda x: x is not None,
                                        fiels_by_contact))))
 
-def merge_fields_on_home_page(contact_fields):
-        return "\n".join(filter(lambda x: x != "",
-                                filter(lambda x: x is not None, contact_fields)))
 
 
 

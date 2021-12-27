@@ -231,15 +231,24 @@ class ContactHelper:
         secondary_phone = re.search("P: (.*)", text).group(1)
         return Contact(home_phone = home_phone, mobil_phone = mobil_phone, work_phone = work_phone, secondary_phone = secondary_phone, all_fields_on_view_form = all_fields_on_view_form)
 
-    #def merge_emails_on_home_page(contact):
-      #  return "\n".join(filter(lambda x: x != "",
-      #                          filter(lambda x: x is not None, [contact.email, contact.email2, contact.email3])))
+    def delete_contact_from_group(self, id_contact, id_group, name_group):
+        wd = self.app.wd
+        wd.find_element_by_name("group").click()
+        Select(wd.find_element_by_name("group")).select_by_visible_text(name_group)
+        wd.find_element_by_id(id_contact).click()
+        wd.find_element_by_name("remove").click()
+        self.return_Home()
+        self.contact_cache = None
 
-   # def merge_phones_like_on_home_page(contact):
-      #  return "\n".join(filter(lambda x: x != "",
-           #                     filter(lambda x: x is not None,
-           #                            [contact.home_phone, contact.mobil_phone, contact.work_phone,
-            #                            contact.secondary_phone])))
+    def merge_fields_on_home_page(self, contact_fields):
+        return "\n".join(filter(lambda x: x != "",
+                                filter(lambda x: x is not None, contact_fields)))
+
+
+
+
+
+
 
 
 

@@ -68,9 +68,10 @@ class DbFixture:
     def get_first_contact_with_group(self):
         cursor =  self.connection.cursor()
         try:
-            cursor.execute("select addressbook.id, address_in_groups.group_id from addressbook\
-                             join address_in_groups on addressbook.id = address_in_groups.id ")
-            find_contact_with_group = cursor.fetchone()
+            cursor.execute("select addressbook.id, address_in_groups.group_id, group_list.group_name from addressbook\
+                             join address_in_groups on addressbook.id = address_in_groups.id and addressbook.deprecated='0000-00-00 00:00:00'\
+                             join group_list on address_in_groups.group_id = group_list.group_id and group_list.group_name <> '' ")
+            find_contact_with_group = cursor.fetchall()
         finally:
             cursor.close()
         return find_contact_with_group
