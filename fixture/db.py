@@ -29,12 +29,10 @@ class DbFixture:
             cursor.execute(f"select id, firstname, middlename, lastname, nickname, address, email, email2, email3, home, mobile, work, phone2 from addressbook where deprecated='0000-00-00 00:00:00'")
             for row in cursor:
                 (id, first_name, middle_name, last_name, nick_name, address, email, email2, email3, home, mobile, work, phone2) = row
-                if email2 != None and email2 != '' and email != None and email != '':
-                    email2 = "\n"+email2
-                if email3 != None and email3 != '' and email2 != None and email2 != ''and email != None and email != '':
-                    email3 = "\n"+email3
                 list.append(Contact(id=str(id), first_name=first_name, middle_name=middle_name, last_name=last_name,
-                                    nick_name=nick_name, address_name=address, all_email=email+email2+email3, all_phones_from_home_page=home+mobile+work+phone2))
+                                    nick_name=nick_name, address_name=address,
+                                    email = email, email2 = email2, email3 = email3,
+                                    home_phone = home, mobil_phone=mobile, work_phone=work, secondary_phone = phone2 ))
         finally:
             cursor.close()
         return list

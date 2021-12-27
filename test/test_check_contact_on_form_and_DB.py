@@ -13,9 +13,16 @@ def test_check_contact_on_form_and_DB(app, db):
         assert str(contact_from_form.first_name).strip() == str(contact_from_DB.first_name).strip()
         assert str(contact_from_form.last_name).strip() == str(contact_from_DB.last_name).strip()
         assert str(contact_from_form.address_name).strip() == str(contact_from_DB.address_name).strip()
-        assert contact_from_form.all_email == contact_from_DB.all_email
-        assert re.sub(r'\s+', '', contact_from_form.all_phones_from_home_page).replace(' ', '') == re.sub(r'\s+', '', contact_from_DB.all_phones_from_home_page).replace(' ', '')
+        email_db_form = [contact_from_DB.email , contact_from_DB.email2, contact_from_DB.email3]
+        assert contact_from_form.all_email == merge_fields_on_home_page(email_db_form)
+        all_phones_db_form = [contact_from_DB.home_phone, contact_from_DB.mobil_phone,
+                                contact_from_DB.work_phone, contact_from_DB.secondary_phone]
+        assert contact_from_form.all_phones_from_home_page == merge_fields_on_home_page(all_phones_db_form)
         element = element + 1
+
+def merge_fields_on_home_page(contact_fields):
+    return "\n".join(filter(lambda x: x != "",
+                            filter(lambda x: x is not None, contact_fields)))
 
 
 

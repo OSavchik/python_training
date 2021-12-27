@@ -231,6 +231,16 @@ class ContactHelper:
         secondary_phone = re.search("P: (.*)", text).group(1)
         return Contact(home_phone = home_phone, mobil_phone = mobil_phone, work_phone = work_phone, secondary_phone = secondary_phone, all_fields_on_view_form = all_fields_on_view_form)
 
+    #def merge_emails_on_home_page(contact):
+      #  return "\n".join(filter(lambda x: x != "",
+      #                          filter(lambda x: x is not None, [contact.email, contact.email2, contact.email3])))
+
+   # def merge_phones_like_on_home_page(contact):
+      #  return "\n".join(filter(lambda x: x != "",
+           #                     filter(lambda x: x is not None,
+           #                            [contact.home_phone, contact.mobil_phone, contact.work_phone,
+            #                            contact.secondary_phone])))
+
 
 
 

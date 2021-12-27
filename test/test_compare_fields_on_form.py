@@ -26,18 +26,10 @@ def test_data_on_contact_view_page_by_index(app):
     assert str(contact_from_view_page_by_index.last_name).strip() == str(contact_from_edit_page.last_name).strip()
     assert str(contact_from_view_page_by_index.first_name).strip() == str(contact_from_edit_page.first_name).strip()
     assert str(contact_from_view_page_by_index.address_name).strip() == str(contact_from_edit_page.address_name).strip()
-
-    s1 = contact_from_view_page_by_index.all_email
-    s2 = merge_emails_on_home_page(contact_from_edit_page)
-    print(s1)
-    print(s2)
-    assert contact_from_view_page_by_index.all_email == merge_emails_on_home_page(contact_from_edit_page)
-
-    str_phones_fields_edit_form = re.sub(r'\s+', '', contact_from_edit_page.all_phones_from_home_page).replace(' ', '')
-    str_phones_fields_view_form = re.sub(r'\s+', '', contact_from_view_page_by_index.all_phones_from_home_page).replace(' ', '')
-    assert str_phones_fields_edit_form == str_phones_fields_view_form
-
-
+    email_edit_form = [contact_from_edit_page.email, contact_from_edit_page.email2, contact_from_edit_page.email3 ]
+    assert contact_from_view_page_by_index.all_email == merge_fields_on_home_page(email_edit_form)
+    all_phones_edit_form = [contact_from_edit_page.home_phone, contact_from_edit_page.mobil_phone, contact_from_edit_page.work_phone, contact_from_edit_page.secondary_phone]
+    assert contact_from_view_page_by_index.all_phones_from_home_page == merge_fields_on_home_page(all_phones_edit_form)
 
 def clear(s):
     return re.sub("[() -]", "", s)
@@ -48,9 +40,10 @@ def merge_all_fields_on_home_page_test(fiels_by_contact):
                                 filter(lambda x: x is not None,
                                        fiels_by_contact))))
 
-def merge_emails_on_home_page(contact):
-    return "\n".join(filter(lambda x: x != "",
-                            filter(lambda x: x is not None, [contact.email, contact.email2, contact.email3])))
+def merge_fields_on_home_page(contact_fields):
+        return "\n".join(filter(lambda x: x != "",
+                                filter(lambda x: x is not None, contact_fields)))
+
 
 
 
