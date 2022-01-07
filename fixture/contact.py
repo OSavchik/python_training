@@ -170,7 +170,7 @@ class ContactHelper:
                                                       all_email=all_email, all_phones_from_home_page=all_phones_from_home_page))
             return list(self.contact_cache)
 
-    def get_contact_list_by_index(self, index):
+    def get_contact_by_index(self, index):
         if self.contact_cache is None:
             wd = self.app.wd
             self.return_Home()
