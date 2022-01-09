@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 from model.group import Group
+import allure
 
+@allure.description ("test_add_group")
 def test_add_group(app, db, json_groups, check_ui):
     group = json_groups
     old_groups  = db.get_group_list()

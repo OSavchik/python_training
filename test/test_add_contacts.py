@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+import allure
+
 from model.contact import Contact
 from fixture.db import DbFixture
 
